@@ -3,7 +3,7 @@ import time
 from gurobipy import Model, GRB
 
 # Set printing options: fixed point with 6 decimals and no scientific notation.
-np.set_printoptions(precision=6, suppress=True, floatmode='fixed')
+np.set_printoptions(precision=2, suppress=True, floatmode='fixed')
 
 def print_tableau(tableau, basic_vars, non_basic_vars):
     """
@@ -13,7 +13,7 @@ def print_tableau(tableau, basic_vars, non_basic_vars):
     header = non_basic_vars + basic_vars + ['RHS']
     print("\t".join(header))
     for row in tableau:
-        print("\t".join(f"{val:.6f}" for val in row))
+        print("\t".join(f"{val:.2f}" for val in row))
 
 def find_pivot_column(tableau):
     """
@@ -204,13 +204,14 @@ def validate_with_gurobi(c, A, b, signs):
 
 if __name__ == "__main__":
     # Example: Problem with '=' and '>=' constraints.
-    c = [5, 2]
+    c = [20, 10]
     A = [
         [1, 1],
-        [2, 1]
+        [1, 1],
+        [2,1]
     ]
-    b = [2, 4]
-    signs = ['=', '>=']
+    b = [2,8,10]
+    signs = ['>=','<=',"<="]
 
     solution = simplex_big_m(c, A, b, signs)
     if solution is not None:
