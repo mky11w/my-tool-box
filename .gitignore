@@ -175,4 +175,5 @@ cython_debug/
 
 venv/
 draft
+.DS_Store
 
